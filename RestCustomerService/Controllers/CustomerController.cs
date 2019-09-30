@@ -47,5 +47,26 @@ namespace RestCustomerService.Controllers
         public void Delete(int id)
         {
         }
+
+        // POST: api/Customer
+        [HttpPost("Ins", Name = "Ins")]
+        public void InsertCustomer(Customer c)
+        {
+
+        }
+
+        // PUT: api/Customer/5
+        [HttpPut("{id}", Name = "Upd")]
+        public void UpdateCustomer(int id, Customer c)
+        {
+
+        }
+
+        // DELETE: 
+        [HttpDelete("{id}", Name = "Del")]
+        public void DeleteCustomer(int id)
+        {
+
+        }
     }
 }
