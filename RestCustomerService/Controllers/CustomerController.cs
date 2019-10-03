@@ -12,8 +12,14 @@ namespace RestCustomerService.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        public static List<Customer> cList = new List<Customer>();
-        public static int nextid = 0;
+        public static int NextId = 0;
+
+        public static List<Customer> cList = new List<Customer>()
+        {
+            new Customer(NextId++, "John", "Doe", 2015),
+            new Customer(NextId++, "Maher", "Khachehan", 2000),
+            new Customer(NextId++, "Pasoon", "Ilham", 2005)
+        };
 
         // GET: api/Customer
         [HttpGet]
@@ -25,48 +31,52 @@ namespace RestCustomerService.Controllers
 
         // GET: api/Customer/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public Customer Get(int id)
         {
-            return "value";
-        }
+            foreach (Customer customer in cList)
+            {
+                if (customer.Id == id)
+                    return customer;
+            }
 
-        // POST: api/Customer
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT: api/Customer/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return null;
         }
 
         // POST: api/Customer
         [HttpPost("Ins", Name = "Ins")]
-        public void InsertCustomer(Customer c)
+        public void InsertCustomer([FromBody] Customer c)
         {
-
+            cList.Add(c);
         }
 
         // PUT: api/Customer/5
         [HttpPut("{id}", Name = "Upd")]
-        public void UpdateCustomer(int id, Customer c)
+        public void UpdateCustomer(int id,[FromBody] Customer c)
         {
-
+            //cList[id] = c;
+            foreach (Customer customer in cList)
+            {
+                if (customer.Id == id)
+                {
+                    int index = cList.IndexOf(customer);
+                    cList[index] = c;
+                }
+            }
         }
 
         // DELETE: 
         [HttpDelete("{id}", Name = "Del")]
         public void DeleteCustomer(int id)
         {
-
+            //cList.RemoveAt(id);
+            foreach (Customer customer in cList)
+            {
+                if (customer.Id == id)
+                {
+                    int index = cList.IndexOf(customer);
+                    cList.RemoveAt(index);
+                }
+            }
         }
     }
 }
