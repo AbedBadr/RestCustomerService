@@ -18,6 +18,11 @@ namespace RestCustomerConsumer
             {
                 Console.WriteLine(customer);
             }
+
+            Console.WriteLine();
+            
+            Customer getCustomer = GetCustomerAsync(1).Result;
+            Console.WriteLine(getCustomer);
         }
 
         public static async Task<IList<Customer>> GetCustomersAsync()
@@ -30,6 +35,21 @@ namespace RestCustomerConsumer
             }
         }
 
-        //public static async 
+        public static async Task<Customer> GetCustomerAsync(int id)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string content = await client.GetStringAsync(CustomersUri + id);
+                Customer customer = JsonConvert.DeserializeObject<Customer>(content);
+                return customer;
+            }
+        }
+
+        public static async void PostCustomerAsync(Customer customer)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+            }
+        }
     }
 }
