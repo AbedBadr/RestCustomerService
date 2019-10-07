@@ -54,14 +54,9 @@ namespace RestCustomerService.Controllers
         public void UpdateCustomer(int id,[FromBody] Customer c)
         {
             //cList[id] = c;
-            foreach (Customer customer in cList)
-            {
-                if (customer.Id == id)
-                {
-                    int index = cList.IndexOf(customer);
-                    cList[index] = c;
-                }
-            }
+            int index = cList.FindIndex(customer => customer.Id == id);
+
+            cList[index] = c;
         }
 
         // DELETE: 
@@ -69,14 +64,9 @@ namespace RestCustomerService.Controllers
         public void DeleteCustomer(int id)
         {
             //cList.RemoveAt(id);
-            foreach (Customer customer in cList)
-            {
-                if (customer.Id == id)
-                {
-                    int index = cList.IndexOf(customer);
-                    cList.RemoveAt(index);
-                }
-            }
+            int index = cList.FindIndex(customer => customer.Id == id);
+
+            cList.RemoveAt(index);
         }
     }
 }
