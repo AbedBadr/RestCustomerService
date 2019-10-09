@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
@@ -14,6 +15,8 @@ namespace RestCustomerConsumer
         static void Main(string[] args)
         {
             HttpRequests();
+
+            Console.ReadKey();
         }
 
         public static async void HttpRequests()
@@ -33,7 +36,7 @@ namespace RestCustomerConsumer
 
             Console.WriteLine("POST REQUEST");
             
-            Customer postCustomer = new Customer(3, "GangLand", "Mahurti", 1995);
+            Customer postCustomer = new Customer(4, "GangLand", "Mahurti", 1995);
             await PostCustomerAsync(postCustomer);
             
             List<Customer> listAfterPost = (List<Customer>)GetCustomersAsync().Result;
@@ -43,6 +46,27 @@ namespace RestCustomerConsumer
             }
 
             Console.WriteLine("PUT REQUEST");
+
+            Customer putCustomer = new Customer(2, "MAHURTI", "MAHURTI", 1997);
+            await PutCustomerAsync(putCustomer);
+
+            IList<Customer> listAfterPut = GetCustomersAsync().Result;
+            foreach (Customer customer in listAfterPut)
+            {
+                Console.WriteLine(customer);
+            }
+
+            /*
+            Console.WriteLine("DELETE REQUEST");
+
+            await DeleteCustomerAsync(4);
+
+            IList<Customer> listAfterDelete = GetCustomersAsync().Result;
+            foreach (Customer customer in listAfterDelete)
+            {
+                Console.WriteLine(customer);
+            }
+            */
         }
 
         public static async Task<IList<Customer>> GetCustomersAsync()
@@ -74,6 +98,26 @@ namespace RestCustomerConsumer
                 StringContent content = new StringContent(body, Encoding.UTF8, "application/json");
 
                 HttpResponseMessage result = await client.PostAsync(CustomersUri, content);
+            }
+        }
+
+        public static async Task PutCustomerAsync(Customer customer)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string body = JsonConvert.SerializeObject(customer);
+
+                StringContent content = new StringContent(body, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage result = await client.PutAsync(CustomersUri + customer.Id, content);
+            }
+        }
+
+        public static async Task DeleteCustomerAsync(int id)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage result = await client.DeleteAsync(CustomersUri + id);
             }
         }
     }
