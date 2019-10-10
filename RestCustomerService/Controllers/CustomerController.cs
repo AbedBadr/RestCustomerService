@@ -43,8 +43,8 @@ namespace RestCustomerService.Controllers
         }
 
         // POST: api/Customer
-        [HttpPost("Ins", Name = "Ins")]
-        public void InsertCustomer([FromBody] Customer c)
+        [HttpPost(Name = "Ins")]
+        public void InsertCustomer(Customer c)
         {
             cList.Add(c);
         }

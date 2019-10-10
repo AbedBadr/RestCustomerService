@@ -36,7 +36,7 @@ namespace RestCustomerConsumer
 
             Console.WriteLine("POST REQUEST");
             
-            Customer postCustomer = new Customer(4, "GangLand", "Mahurti", 1995);
+            Customer postCustomer = new Customer(3, "GangLand", "Mahurti", 1995);
             await PostCustomerAsync(postCustomer);
             
             List<Customer> listAfterPost = (List<Customer>)GetCustomersAsync().Result;
@@ -56,17 +56,14 @@ namespace RestCustomerConsumer
                 Console.WriteLine(customer);
             }
 
-            /*
             Console.WriteLine("DELETE REQUEST");
-
-            await DeleteCustomerAsync(4);
+            await DeleteCustomerAsync(3);
 
             IList<Customer> listAfterDelete = GetCustomersAsync().Result;
             foreach (Customer customer in listAfterDelete)
             {
                 Console.WriteLine(customer);
             }
-            */
         }
 
         public static async Task<IList<Customer>> GetCustomersAsync()
