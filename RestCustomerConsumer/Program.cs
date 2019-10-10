@@ -56,9 +56,7 @@ namespace RestCustomerConsumer
                 Console.WriteLine(customer);
             }
 
-            /*
             Console.WriteLine("DELETE REQUEST");
-
             await DeleteCustomerAsync(4);
 
             IList<Customer> listAfterDelete = GetCustomersAsync().Result;
@@ -66,7 +64,6 @@ namespace RestCustomerConsumer
             {
                 Console.WriteLine(customer);
             }
-            */
         }
 
         public static async Task<IList<Customer>> GetCustomersAsync()
