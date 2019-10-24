@@ -13,11 +13,13 @@ namespace RestCustomerServiceTest
         {
             // ARRANGE
             CustomerController customerController = new CustomerController();
+            int expected = 4;
 
             // ACT
             List<Customer> cList = customerController.Get();
 
             // ASSERT
+            Assert.AreEqual(expected, cList.Count);
             //Assert.AreEqual(CustomerController.cList, cList, "Are not equal");
         }
 
@@ -26,6 +28,7 @@ namespace RestCustomerServiceTest
         {
             // ARRANGE
             CustomerController cc = new CustomerController();
+            Customer expected = new Customer(1,"Navn", "Efternavn", 1996);
 
             // ACT
             cc.Get(1);
