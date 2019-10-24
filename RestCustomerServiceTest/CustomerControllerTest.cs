@@ -38,11 +38,26 @@ namespace RestCustomerServiceTest
         }
 
         [TestMethod]
+        public void GetNotExistingCustomer()
+        {
+            // ARRANGE
+            CustomerController customerController = new CustomerController();
+
+            // ACT
+            Customer c = customerController.Get(15);
+
+            // ASSERT
+            Assert.IsNull(c);
+        }
+
+        [TestMethod]
         public void PostTest()
         {
             // ARRANGE
 
+
             // ACT
+
 
             // ASSERT
 
@@ -52,8 +67,11 @@ namespace RestCustomerServiceTest
         public void PutTest()
         {
             // ARRANGE
+            CustomerController cc = new CustomerController();
+            Customer c = cc.Get(1);
 
             // ACT
+            c.FirstName = c.FirstName + "A";
 
             // ASSERT
 
@@ -64,7 +82,9 @@ namespace RestCustomerServiceTest
         {
             // ARRANGE
 
+
             // ACT
+
 
             // ASSERT
 
